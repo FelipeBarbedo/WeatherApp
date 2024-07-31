@@ -31,24 +31,33 @@ public class WeatherAppGui extends JFrame {
 
         add(searchTextField);
 
-        JButton searchButton = new JButton(loadImage());
+        JButton searchButton = new JButton(loadImage("assets/search.png"));
 
         searchButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         searchButton.setBounds(375, 13, 47, 45);
-
         add(searchButton);
+
+        JLabel weatherConditionImage = new JLabel(loadImage("assets/cloudy.png"));
+        weatherConditionImage.setBounds(0, 125, 450, 217);
+        add(weatherConditionImage);
+
+        JLabel temperatureText = new JLabel("10 C");
+        temperatureText.setBounds(0, 350, 450, 54);
+        temperatureText.setFont(new Font("Dialog", Font.BOLD, 48));
+
+        temperatureText.setHorizontalAlignment(SwingConstants.CENTER);
+        add(temperatureText);
     }
 
-    private ImageIcon loadImage() {
+    private ImageIcon loadImage(String resourcePath) {
 
         try {
-            BufferedImage image = ImageIO.read(new File("assets/search.png"));
+            BufferedImage image = ImageIO.read(new File(resourcePath));
 
             return new ImageIcon(image);
         } catch (IOException e) {
             System.out.println("Could not find resource.");
         }
-
 
         return null;
     }
