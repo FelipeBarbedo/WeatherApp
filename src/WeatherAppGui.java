@@ -23,12 +23,10 @@ public class WeatherAppGui extends JFrame {
     }
 
     private void addGuiComponents() {
+
         JTextField searchTextField = new JTextField();
-
         searchTextField.setBounds(15, 15, 351, 45);
-
         searchTextField.setFont(new Font("Dialog", Font.PLAIN, 24));
-
         add(searchTextField);
 
         // adding an image to the button
@@ -43,11 +41,11 @@ public class WeatherAppGui extends JFrame {
         add(weatherConditionImage);
 
         // adding cloudy text description
-        JLabel weatherConditionDesc = new JLabel("Cloudy");
-        weatherConditionDesc.setBounds(0, 405, 450, 36);
-        weatherConditionDesc.setFont(new Font("Dialog", Font.PLAIN, 32));
-        weatherConditionDesc.setHorizontalAlignment(SwingConstants.CENTER);
-        add(weatherConditionDesc);
+        JLabel weatherConditionText = new JLabel("Cloudy");
+        weatherConditionText.setBounds(0, 405, 450, 36);
+        weatherConditionText.setFont(new Font("Dialog", Font.PLAIN, 32));
+        weatherConditionText.setHorizontalAlignment(SwingConstants.CENTER);
+        add(weatherConditionText);
 
         // adding temperature value
         JLabel temperatureText = new JLabel("10 C");
@@ -65,13 +63,23 @@ public class WeatherAppGui extends JFrame {
         JLabel humidityText = new JLabel("<html><b>Humidity</b></html>");
         humidityText.setBounds(90, 500, 85, 55);
         add(humidityText);
+
+        // adding wind speed image
+        JLabel windSpeedImage = new JLabel(loadImage("assets/windspeed.png"));
+        windSpeedImage.setBounds(220, 500, 74, 66);
+        add(windSpeedImage);
+
+        // adding wind speed text description
+        JLabel windSpeedText = new JLabel("<html><b>15 km/h</b></html>");
+        windSpeedText.setBounds(310, 500, 85, 55);
+        windSpeedText.setFont(new Font("Dialog", Font.PLAIN, 16));
+        add(windSpeedImage);
+
     }
 
     private ImageIcon loadImage(String resourcePath) {
-
         try {
             BufferedImage image = ImageIO.read(new File(resourcePath));
-
             return new ImageIcon(image);
         } catch (IOException e) {
             System.out.println("Could not find resource.");
