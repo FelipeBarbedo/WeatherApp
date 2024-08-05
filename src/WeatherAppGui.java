@@ -1,11 +1,17 @@
+import org.json.simple.JSONObject;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 public class WeatherAppGui extends JFrame {
+    private JSONObject weatherData;
+
     public WeatherAppGui() {
         super("Weather App");
 
@@ -28,12 +34,6 @@ public class WeatherAppGui extends JFrame {
         searchTextField.setBounds(15, 15, 351, 45);
         searchTextField.setFont(new Font("Dialog", Font.PLAIN, 24));
         add(searchTextField);
-
-        // adding an image to the button
-        JButton searchButton = new JButton(loadImage("assets/search.png"));
-        searchButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        searchButton.setBounds(375, 13, 47, 45);
-        add(searchButton);
 
         // adding cloudy image
         JLabel weatherConditionImage = new JLabel(loadImage("assets/cloudy.png"));
@@ -74,6 +74,55 @@ public class WeatherAppGui extends JFrame {
         windSpeedText.setBounds(310, 500, 85, 55);
         windSpeedText.setFont(new Font("Dialog", Font.PLAIN, 16));
         add(windSpeedImage);
+
+        // adding an image to the button
+        JButton searchButton = new JButton(loadImage("assets/search.png"));
+        searchButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        searchButton.setBounds(375, 13, 47, 45);
+        searchButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String userInput = searchTextField.getText();
+
+                if (userInput.replaceAll("\\s", "").isEmpty()) {
+                    return;
+                }
+
+                weatherData = WeatherApp.getWeatherData(userInput);
+
+                String weatherCondition = (String) weatherData.get("weather_condition");
+
+                switch (weatherCondition) {
+                    case "Clear":
+                        weatherConditionImage.setIcon(loadImage("assets/clear.png"));
+                        break;
+
+                    case "Cloudy":
+                        weatherConditionImage.setIcon(loadImage("assets/cloudy.png"));
+                        break;
+
+                    case "Rain":
+                        weatherConditionImage.setIcon(loadImage("assets/rain.png"));
+                        break;
+
+                    case "Snow":
+                        weatherConditionImage.setIcon(loadImage("assets/snow.png"));
+                        break;
+                }
+
+                double temperature = (double) weatherData.get("temperature");
+                temperatureText.setText(temperature + " C");
+
+                weatherConditionText.setText(weatherCondition);
+
+                long humidity = (long) weatherData.get("humidity");
+                humidityText.setText("<html><b>Humidity</b>" + humidity + "%</html>");
+
+                double windSpeed = (double) weatherData.get("windspeed");
+                windSpeedText.setText("<html><b>WindSpeed</b>" + windSpeed + "km/h</html>");
+            }
+        });
+        add(searchButton);
 
     }
 
