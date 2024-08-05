@@ -56,13 +56,13 @@ public class WeatherApp {
             JSONArray temperatureData = (JSONArray) hourly.get("temperature_2m");
             double temperature = (double) temperatureData.get(index);
 
-            JSONArray weatherCode = (JSONArray) hourly.get("weathercode");
+            JSONArray weatherCode = (JSONArray) hourly.get("weather_code");
             String weatherCondition = convertWeatherCode((long) weatherCode.get(index));
 
-            JSONArray relativeHumidity = (JSONArray) hourly.get("relativehumidity_2m");
+            JSONArray relativeHumidity = (JSONArray) hourly.get("relative_humidity_2m");
             long humidity = (long) relativeHumidity.get(index);
 
-            JSONArray windSpeedData = (JSONArray) hourly.get("windspeed_10m");
+            JSONArray windSpeedData = (JSONArray) hourly.get("wind_speed_10m");
             double windSpeed = (double) windSpeedData.get(index);
 
             JSONObject weatherData = new JSONObject();
