@@ -48,7 +48,7 @@ public class WeatherAppGui extends JFrame {
         add(weatherConditionText);
 
         // adding temperature value
-        JLabel temperatureText = new JLabel("10 C");
+        JLabel temperatureText = new JLabel("X C");
         temperatureText.setBounds(0, 350, 450, 54);
         temperatureText.setFont(new Font("Dialog", Font.BOLD, 48));
         temperatureText.setHorizontalAlignment(SwingConstants.CENTER);
@@ -72,8 +72,12 @@ public class WeatherAppGui extends JFrame {
         // adding wind speed text description
         JLabel windSpeedText = new JLabel("<html><b>Wind Speed</b></html>");
         windSpeedText.setBounds(310, 500, 85, 55);
-       // windSpeedText.setFont(new Font("Dialog", Font.PLAIN, 16));
+        // windSpeedText.setFont(new Font("Dialog", Font.PLAIN, 16));
         add(windSpeedText);
+
+        JLabel cityName = new JLabel();
+        cityName.setBounds(15, 80, 85, 55);
+        add(cityName);
 
         // adding an image to the button
         JButton searchButton = new JButton(loadImage("src/assets/search.png"));
@@ -87,6 +91,8 @@ public class WeatherAppGui extends JFrame {
 
                 if (userInput.replaceAll("\\s", "").isEmpty())
                     return;
+
+                cityName.setText("<html>" + userInput + "</html>");
 
                 weatherData = WeatherApp.getWeatherData(userInput);
 
@@ -117,7 +123,7 @@ public class WeatherAppGui extends JFrame {
                 weatherConditionText.setText(weatherCondition);
 
                 long humidity = (long) weatherData.get("humidity");
-                humidityText.setText("<html><b>Humidity </b>" + humidity + " %</html>");
+                humidityText.setText("<html><b>Humidity </b>" + humidity + "%</html>");
 
                 double windSpeed = (double) weatherData.get("windspeed");
                 windSpeedText.setText("<html><b>WindSpeed </b>" + windSpeed + " km/h</html>");
