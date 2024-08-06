@@ -70,26 +70,27 @@ public class WeatherAppGui extends JFrame {
         add(windSpeedImage);
 
         // adding wind speed text description
-        JLabel windSpeedText = new JLabel("<html><b>15 km/h</b></html>");
+        JLabel windSpeedText = new JLabel("<html><b>Wind Speed</b></html>");
         windSpeedText.setBounds(310, 500, 85, 55);
-        windSpeedText.setFont(new Font("Dialog", Font.PLAIN, 16));
-        add(windSpeedImage);
+       // windSpeedText.setFont(new Font("Dialog", Font.PLAIN, 16));
+        add(windSpeedText);
 
         // adding an image to the button
         JButton searchButton = new JButton(loadImage("src/assets/search.png"));
         searchButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         searchButton.setBounds(375, 13, 47, 45);
+
         searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String userInput = searchTextField.getText();
 
-                if (userInput.replaceAll("\\s", "").isEmpty()) {
+                if (userInput.replaceAll("\\s", "").isEmpty())
                     return;
-                }
 
                 weatherData = WeatherApp.getWeatherData(userInput);
 
+                assert weatherData != null;
                 String weatherCondition = (String) weatherData.get("weather_condition");
 
                 switch (weatherCondition) {
@@ -116,14 +117,14 @@ public class WeatherAppGui extends JFrame {
                 weatherConditionText.setText(weatherCondition);
 
                 long humidity = (long) weatherData.get("humidity");
-                humidityText.setText("<html><b>Humidity</b>" + humidity + "%</html>");
+                humidityText.setText("<html><b>Humidity </b>" + humidity + " %</html>");
 
                 double windSpeed = (double) weatherData.get("windspeed");
-                windSpeedText.setText("<html><b>WindSpeed</b>" + windSpeed + "km/h</html>");
+                windSpeedText.setText("<html><b>WindSpeed </b>" + windSpeed + " km/h</html>");
             }
         });
-        add(searchButton);
 
+        add(searchButton);
     }
 
     private ImageIcon loadImage(String resourcePath) {

@@ -68,7 +68,7 @@ public class WeatherApp {
             JSONObject weatherData = new JSONObject();
             weatherData.put("temperature", temperature);
             weatherData.put("weather_condition", weatherCondition);
-            weatherData.put("humitidy", humidity);
+            weatherData.put("humidity", humidity);
             weatherData.put("windspeed", windSpeed);
 
             return weatherData;
