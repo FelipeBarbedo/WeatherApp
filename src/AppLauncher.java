@@ -7,7 +7,7 @@ public class AppLauncher {
             public void run() {
                 new WeatherAppGui().setVisible(true);
 
-              //  System.out.println(WeatherApp.getLocationData("Brazil"));
+                //  System.out.println(WeatherApp.getLocationData("Brazil"));
             }
         });
     }
